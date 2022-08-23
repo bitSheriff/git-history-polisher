@@ -40,7 +40,7 @@ fn main() {
     let args = Args::parse();
     println!("Hello, world! {:#?}", args);
 
-    let dateMod = Datter::new(args.start_date, args.end_date, args.workdays);
+    let mut dateMod = Datter::new(args.start_date, args.end_date, args.workdays);
 
     if args.workdays == true
     {
@@ -48,4 +48,18 @@ fn main() {
     }
 
     println!("Datter: {:#?}", dateMod);
+
+    loop 
+    {
+        match dateMod.get_next_date(){
+            Err(result) => println!("has finished"),
+            Ok(result) => println!("Iterate Date: {:#?}", result),
+        }
+
+        if dateMod.get_finished() == true
+        {
+            break;
+        }
+    }
+
 }

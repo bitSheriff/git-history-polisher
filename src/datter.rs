@@ -9,6 +9,7 @@ pub struct Datter {
     end_date: NaiveDate,
     only_workday: bool,
     iterate_date: NaiveDate,
+    has_finished: bool,
 }
 
 impl Datter {
@@ -38,16 +39,34 @@ impl Datter {
         Datter { start_date: Datter::string2date(&start),
                  end_date: Datter::string2date(&end),
                  iterate_date: Datter::string2date(&start),
-                 only_workday: work }
+                 only_workday: work,
+                 has_finished: false }
     }
 
-    pub fn get_next_date(&mut self) -> String {
+    fn iterate_internal_date(&mut self){
+        // interate date
+        self.next_date();
+
+        // check if the end date is reached
+        if self.iterate_date > self.end_date
+        {
+            // no next date, finished
+            self.has_finished = true;
+        }
+    }
+
+    pub fn get_next_date(&mut self) -> Result<String, String> {
         let mut rng = rand::thread_rng();
         let date_string = self.iterate_date.format("%Y-%m-%d").to_string();
         let mut rand_hour : u8 = rng.gen_range(0..24);
         let rand_min : u8 = rng.gen_range(0..59);
         let rand_second : u8 = rng.gen_range(0..59);
         
+        if self.has_finished == true
+        {
+            return Err("has finished".to_string());
+        }
+
         if self.only_workday == true
         {
             // set the commit hours to normal working hours
@@ -55,7 +74,15 @@ impl Datter {
         }
 
         let final_string = format!("{} {}:{}:{}", date_string, rand_hour.to_string(), rand_min.to_string(), rand_second.to_string());
-        final_string
+
+        // increment date
+        self.iterate_internal_date();
+
+        Ok(final_string)
+    }
+
+    pub fn get_finished(&self) -> bool {
+        self.has_finished
     }
 
 }
