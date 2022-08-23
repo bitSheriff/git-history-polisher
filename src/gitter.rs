@@ -9,7 +9,7 @@ struct Gitter {
 impl Gitter {
     pub fn new(path: String) -> Gitter {
         Self {  path: path,
-                fake_file:"foo.txt".to_string()
+                fake_file: String::from("foo.text")
         }
     }
 
