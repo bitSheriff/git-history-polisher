@@ -3,6 +3,7 @@ mod datter;
 mod systemer;
 
 use clap::Parser;
+use datter::Datter;
 
 #[derive(Parser, Debug)]
 #[clap(name = "git-history-polisher")]
@@ -15,11 +16,11 @@ struct Args {
    path: String,
 
    /// Start date
-   #[clap(short = 's', long="start", group = "date", value_parser)]
+   #[clap(short = 's', long="start", value_parser)]
    start_date: String,
     
    /// End date
-   #[clap(short = 'e', long="end",group = "date", value_parser)]
+   #[clap(short = 'e', long="end", value_parser)]
    end_date: String,
     
    /// Commits only on workdays
@@ -29,14 +30,22 @@ struct Args {
    /// Commits per day
    #[clap(short = 'c', long = "commits-per-day", value_parser, default_value_t = 1.0)]
    count: f32,
+
+   /// File to be changed
+   #[clap(short = 'f', long = "file", value_parser, default_value_t = String::from("foo.txt"))]
+   file: String,
 }
 
 fn main() {
     let args = Args::parse();
     println!("Hello, world! {:#?}", args);
 
+    let dateMod = Datter::new(args.start_date, args.end_date, args.workdays);
+
     if args.workdays == true
     {
         println!("Sorry not implemented yet")
     }
+
+    println!("Datter: {:#?}", dateMod);
 }
