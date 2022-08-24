@@ -40,23 +40,23 @@ fn main() {
     let args = Args::parse();
     println!("Hello, world! {:#?}", args);
 
-    let mut dateMod = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
+    let mut date_module = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
 
     if args.workdays == true
     {
         println!("Sorry not implemented yet")
     }
 
-    println!("Datter: {:#?}", dateMod);
+    println!("Datter: {:#?}", date_module);
 
     loop 
     {
-        match dateMod.get_next_date(){
+        match date_module.get_next_date(){
             Err(result) => println!("has finished"),
             Ok(result) => println!("Iterate Date: {:#?}", result),
         }
 
-        if dateMod.get_finished() == true
+        if date_module.get_finished() == true
         {
             break;
         }
