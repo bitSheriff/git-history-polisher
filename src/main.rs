@@ -40,7 +40,7 @@ fn main() {
     let args = Args::parse();
     println!("Hello, world! {:#?}", args);
 
-    let mut dateMod = Datter::new(args.start_date, args.end_date, args.workdays);
+    let mut dateMod = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
 
     if args.workdays == true
     {

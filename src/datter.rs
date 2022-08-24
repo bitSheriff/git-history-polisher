@@ -10,6 +10,7 @@ pub struct Datter {
     only_workday: bool,
     iterate_date: NaiveDate,
     has_finished: bool,
+    steps: u8,
 }
 
 impl Datter {
@@ -32,15 +33,16 @@ impl Datter {
     }
 
     fn next_date(&mut self) {
-        self.iterate_date += Duration::days(1)
+        self.iterate_date += Duration::days(self.steps.into())
     }
 
-    pub fn new(start: String, end: String, work: bool) -> Datter {
+    pub fn new(start: String, end: String, work: bool, commits: f32) -> Datter {
         Datter { start_date: Datter::string2date(&start),
                  end_date: Datter::string2date(&end),
                  iterate_date: Datter::string2date(&start),
                  only_workday: work,
-                 has_finished: false }
+                 has_finished: false,
+                 steps: get_steps_from_commits(commits)}
     }
 
     fn iterate_internal_date(&mut self){
@@ -85,5 +87,18 @@ impl Datter {
         self.has_finished
     }
 
+
 }
 
+
+fn get_steps_from_commits(commits_per_day: f32) -> u8 {
+
+    let steps : u8 = 1;
+    if commits_per_day < 1.0 
+    {
+        let steps_f32: f32 = 1.0 / commits_per_day;
+        steps = steps_f32.round() as u8;
+    }
+
+    steps
+}
