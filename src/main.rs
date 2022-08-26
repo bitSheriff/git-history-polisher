@@ -38,24 +38,21 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    println!("Hello, world! {:#?}", args);
+    println!("Arguments parsed: {:#?}", args);
 
     let mut date_module = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
 
-    if args.workdays == true
-    {
-        println!("Sorry not implemented yet")
-    }
-
     println!("Datter: {:#?}", date_module);
 
+    // Iterate through the wanted days
     loop 
     {
         match date_module.get_next_date(){
             Err(result) => println!("has finished"),
-            Ok(result) => println!("Iterate Date: {:#?}", result),
+            Ok(result) => println!("Iterated Date: {:#?}", result),
         }
 
+        // loop termination
         if date_module.get_finished() == true
         {
             break;
