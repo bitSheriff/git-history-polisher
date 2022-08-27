@@ -59,4 +59,6 @@ fn main() {
         }
     }
 
+    systemer::echo_test();
+
 }
