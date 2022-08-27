@@ -43,7 +43,7 @@ fn main() {
     let mut date_module = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
 
     println!("Datter: {:#?}", date_module);
-
+    
     // Iterate through the wanted days
     loop 
     {

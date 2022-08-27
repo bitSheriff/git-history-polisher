@@ -94,7 +94,7 @@ impl Datter {
             rand_hour = rng.gen_range(8..16);
         }
 
-        let final_string = format!("{} {}:{}:{}", date_string, rand_hour.to_string(), rand_min.to_string(), rand_second.to_string());
+        let final_string = format!("{} {:02}:{:02}:{:02}", date_string, rand_hour, rand_min, rand_second);
 
         // increment date
         self.iterate_internal_date();
