@@ -2,7 +2,7 @@ use std::process::Command;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
- 
+
 pub fn system_call(cmd: String, args: String) {
 }
 
@@ -16,7 +16,7 @@ pub fn git_add(dir: String) {
 
 }
 
-pub fn git_commit(dir: String, msg: String) {
+pub fn git_commit(&dir: &std::string::String, msg: String) {
     let msg_cmd = format!("-m \"{}\"", msg);
      
     let command = Command::new("git")

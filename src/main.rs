@@ -1,5 +1,5 @@
-mod gitter;
 mod datter;
+mod gitter;
 mod systemer;
 
 use clap::Parser;
@@ -12,37 +12,47 @@ use gitter::Gitter;
 #[clap(version = "0.1")]
 #[clap(about = "Polishes your git history for GitHub", long_about = None)]
 struct Args {
-   /// path to the git repository
-   #[clap(short = 'p', long="path", value_parser)]
-   path: String,
+    /// path to the git repository
+    #[clap(short = 'p', long = "path", value_parser)]
+    path: String,
 
-   /// Start date
-   #[clap(short = 's', long="start", value_parser)]
-   start_date: String,
-    
-   /// End date
-   #[clap(short = 'e', long="end", value_parser)]
-   end_date: String,
-    
-   /// Commits only on workdays
-   #[clap(short = 'w', long = "only-workdays", value_parser, default_value_t = false)]
-   workdays: bool,
-    
-   /// Commits per day
-   #[clap(short = 'c', long = "commits-per-day", value_parser, default_value_t = 1.0)]
-   count: f32,
+    /// Start date
+    #[clap(short = 's', long = "start", value_parser)]
+    start_date: String,
 
-   /// Min Commits per day
-   #[clap(short = 'm', long = "min", value_parser, default_value_t = 0)]
-   min_com: u16,
-    
-   /// Max Commits per day
-   #[clap(short = 'M', long = "max", value_parser, default_value_t = 0)]
-   max_com: u16,
-    
-   /// File to be changed
-   #[clap(short = 'f', long = "file", value_parser, default_value_t = String::from("foo.txt"))]
-   file: String,
+    /// End date
+    #[clap(short = 'e', long = "end", value_parser)]
+    end_date: String,
+
+    /// Commits only on workdays
+    #[clap(
+        short = 'w',
+        long = "only-workdays",
+        value_parser,
+        default_value_t = false
+    )]
+    workdays: bool,
+
+    /// Commits per day
+    #[clap(
+        short = 'c',
+        long = "commits-per-day",
+        value_parser,
+        default_value_t = 1.0
+    )]
+    count: f32,
+
+    /// Min Commits per day
+    #[clap(short = 'm', long = "min", value_parser, default_value_t = 0)]
+    min_com: u16,
+
+    /// Max Commits per day
+    #[clap(short = 'M', long = "max", value_parser, default_value_t = 0)]
+    max_com: u16,
+
+    /// File to be changed
+    #[clap(short = 'f', long = "file", value_parser, default_value_t = String::from("foo.txt"))]
+    file: String,
 }
 
 fn main() {
@@ -51,31 +61,27 @@ fn main() {
 
     let mut date_module = Datter::new(args.start_date, args.end_date, args.workdays, args.count);
     let mut git_module = Gitter::new(args.path, args.file, args.min_com, args.max_com);
-     
+
     println!("Datter: {:#?}", date_module);
     println!("Gitter: {:#?}", git_module);
     // Iterate through the wanted days
-    loop 
-    {
-        match date_module.get_next_date(){
+    loop {
+        match date_module.get_next_date() {
             Err(resultDate) => println!("has finished"),
-            Ok(resultDate) => { 
-                                println!("Iterated Date: {:#?}", resultDate);
-                                 
-                                // commit on the iterated date
-                                git_module.commit_on_date(&resultDate);
+            Ok(resultDate) => {
+                println!("Iterated Date: {:#?}", resultDate);
+
+                // commit on the iterated date
+                git_module.commit_on_date(&resultDate);
             }
         }
-    
 
         // loop termination
-        if date_module.get_finished() == true
-        {
+        if date_module.get_finished() == true {
             println!("Commits done: {:#?}", git_module.get_num_commits());
             break;
         }
     }
 
-//    systemer::echo_test();
-
+    //    systemer::echo_test();
 }
