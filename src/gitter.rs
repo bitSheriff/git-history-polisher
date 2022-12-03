@@ -46,6 +46,10 @@ impl Gitter {
     /// command should look like "git commit --date='year-month-day hour:minutes:seconds' -m "message""
     fn commit(&mut self, date_string: &String) {
         let msg = lipsum::lipsum_words(LOREM_WORDS.into());
+        let fileWithFolder = format!("{}/{}", &self.path, & self.fake_file);
+        systemer::sys_change_file(&fileWithFolder);
+
+        systemer::git_add(&self.path);
 
         systemer::git_commit(&self.path, msg);
 

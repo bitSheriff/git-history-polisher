@@ -1,20 +1,25 @@
 use std::process::Command;
 use std::fs::File;
-use std::io::prelude::*;
-use std::path::Path;
+use std::io::{Error, Write};
 use rand::Rng;
 
         
-pub fn system_call(cmd: String, args: String) {
+pub fn system_call(cmd: String) -> String {
+
+    let command = Command::new(cmd).output().expect("failed to execute process");
+    //return String::from_utf8(command.stdout);
+    //return String::from_utf8_lossy(&command.stdout)
+    todo!()
 }
 
 pub fn git_add(dir: &String) {
     let command = Command::new("git")
                   .arg("-C")
                   .arg(dir)
-                  .arg(" add")
+                  .arg("add")
                   .arg(".")
-                  .status();
+                  .status()
+                  .expect("faild to execute process");
 
 }
 
@@ -24,33 +29,31 @@ pub fn git_commit(dir: &String, msg: String) {
     let command = Command::new("git")
                   .arg("-C")
                   .arg(dir)
-                  .arg(" commit")
+                  .arg("commit")
                   .arg(msg_cmd)
                   .status();
 }
 
-pub fn sys_create_file(name: &String) {
 
-    let command = Command::new("touch")
-                  .arg(name)
-                  .status();
-}
-
-pub fn sys_change_file(name: String) {
+pub fn sys_change_file(name: &String) -> Result<(), Error> {
 
     let mut rng = rand::thread_rng();
     let randNum = rng.gen_range(0 .. i32::MAX);
+    let mut file = File::create(name)?;
+    let string = randNum.to_string();
 
-    let echCmd = format!("echo '{}' > ", randNum);
+    let strInt: &str = &string[..];
 
-    let command = Command::new("touch")
-                  .arg(name)
-                  .status();
+    writeln!(file, "{}", strInt)?;
+    Ok(())
 }
 
 pub fn echo_test() {
     let command = Command::new("echo").
         arg("hello")
         .status();
+
+
+
 }
 
