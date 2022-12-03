@@ -79,7 +79,7 @@ fn main() {
         // loop termination
         if date_module.get_finished() == true
         {
-            systemer::clean_up(args.file, &args.path);
+            git_module.clean_up();
             break;
         }
     }

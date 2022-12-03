@@ -28,7 +28,7 @@ impl Gitter {
         }
     }
     
-    pub fn commit_on_date(&mut self, &date_string:&std::string::String) {
+    pub fn commit_on_date(&mut self, date_string: &String) {
         let mut commits:u16 = 1;
 
         if self.min_commits != self.max_commits
@@ -44,7 +44,7 @@ impl Gitter {
 
     /// Commit
     /// command should look like "git commit --date='year-month-day hour:minutes:seconds' -m "message""
-    fn commit(&mut self, &date_string: &std::string::String) {
+    fn commit(&mut self, date_string: &String) {
         let msg = lipsum::lipsum_words(LOREM_WORDS.into());
 
         systemer::git_commit(&self.path, msg);
@@ -53,10 +53,6 @@ impl Gitter {
         self.num_commits += 1;
     }
     
-    pub fn init_file() {
-        todo!()
-    }
-
     pub fn get_num_commits(&self) -> u32 {
         self.num_commits
     }
@@ -67,5 +63,8 @@ impl Gitter {
         todo!()
     }
 
+    pub fn clean_up(&mut self){
+
+    }
 
 }

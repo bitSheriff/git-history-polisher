@@ -2,7 +2,7 @@ use std::process::Command;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
-
+use rand::Rng;
 
         
 pub fn system_call(cmd: String, args: String) {
@@ -37,7 +37,17 @@ pub fn sys_create_file(name: &String) {
 }
 
 pub fn sys_change_file(name: String) {
-    todo!()
+
+
+
+    let mut rng = rand::thread_rng();
+    let randNum = rng.gen_range(0 .. i32::MAX);
+
+    let echCmd = format!("echo '{}' > ", randNum);
+
+    let command = Command::new("touch")
+                  .arg(name)
+                  .status();
 }
 
 pub fn echo_test() {
@@ -46,13 +56,3 @@ pub fn echo_test() {
         .status();
 }
 
-pub fn clean_up(fileName: String, dir: &String) {
-    // delete the file which was created 
-    let command = Command::new("rm ")
-                  .arg(fileName)
-                  .status();
-
-    // add and commit the last change
-    git_add(dir);
-    git_commit(dir, "project clean up".to_string());
-}
