@@ -13,7 +13,6 @@ pub struct Gitter {
     min_commits: u16,
     max_commits: u16,
     num_commits: u32,
-    num_commits_done_day: u16,
 }
 
 
@@ -23,7 +22,6 @@ impl Gitter {
                 fake_file: file,
                 min_commits: min,
                 max_commits: max,
-                num_commits_done_day: 0,
                 num_commits: 0
         }
     }
@@ -47,7 +45,7 @@ impl Gitter {
     fn commit(&mut self, date_string: &String) {
         let msg = lipsum::lipsum_words(LOREM_WORDS.into());
         let fileWithFolder = format!("{}/{}", &self.path, & self.fake_file);
-        systemer::sys_change_file(&fileWithFolder);
+        let _ = systemer::sys_change_file(&fileWithFolder);
 
         systemer::git_add(&self.path);
 

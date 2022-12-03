@@ -18,8 +18,7 @@ pub fn git_add(dir: &String) {
                   .arg(dir)
                   .arg("add")
                   .arg(".")
-                  .status()
-                  .expect("faild to execute process");
+                  .status();
 
 }
 
