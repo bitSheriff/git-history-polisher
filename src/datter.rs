@@ -98,7 +98,7 @@ impl Datter {
 
         // increment date
         self.iterate_internal_date();
-
+        
         Ok(final_string)
     }
 

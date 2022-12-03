@@ -50,12 +50,3 @@ pub fn sys_change_file(name: &String) -> Result<(), Error> {
     Ok(())
 }
 
-pub fn echo_test() {
-    let command = Command::new("echo").
-        arg("hello")
-        .status();
-
-
-
-}
-
