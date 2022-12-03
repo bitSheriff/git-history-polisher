@@ -19,7 +19,7 @@ pub struct Gitter {
 
 impl Gitter {
     pub fn new(path: String, file: String, min: u16, max: u16) -> Gitter {
-        Self {  path: path,
+        Self {  path: format!("{}{}", path, String::from("/.git")),
                 fake_file: file,
                 min_commits: min,
                 max_commits: max,
