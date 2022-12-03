@@ -51,7 +51,7 @@ impl Gitter {
 
         systemer::git_add(&self.path);
 
-        systemer::git_commit(&self.path, msg);
+        systemer::git_commit(&self.path, date_string, msg);
 
         // increase the the internal commit counter
         self.num_commits += 1;

@@ -23,7 +23,7 @@ pub fn git_add(dir: &String) {
 
 }
 
-pub fn git_commit(dir: &String, msg: String) {
+pub fn git_commit(dir: &String, date: &String, msg: String) {
     let msg_cmd = format!("-m \"{}\"", msg);
      
     let command = Command::new("git")
@@ -31,6 +31,8 @@ pub fn git_commit(dir: &String, msg: String) {
                   .arg(dir)
                   .arg("commit")
                   .arg(msg_cmd)
+                  .arg("--date")
+                  .arg(date)
                   .status();
 }
 
