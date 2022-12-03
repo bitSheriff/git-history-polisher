@@ -10,11 +10,9 @@ pub fn system_call(cmd: String, args: String) {
 
 pub fn git_add(dir: &String) {
     let command = Command::new("git")
-                  .arg("--git-dir")
-                  .arg(format!("{}{}", dir, String::from("/.git")))
-                  .arg("--work-tree")
+                  .arg("-C")
                   .arg(dir)
-                  .arg("add")
+                  .arg(" add")
                   .arg(".")
                   .status();
 
@@ -24,11 +22,9 @@ pub fn git_commit(dir: &String, msg: String) {
     let msg_cmd = format!("-m \"{}\"", msg);
      
     let command = Command::new("git")
-                  .arg("--git-dir")
-                  .arg(format!("{}{}", dir, String::from("/.git")))
-                  .arg("--work-tree")
+                  .arg("-C")
                   .arg(dir)
-                  .arg("commit")
+                  .arg(" commit")
                   .arg(msg_cmd)
                   .status();
 }
