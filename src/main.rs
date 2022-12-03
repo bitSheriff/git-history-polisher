@@ -67,12 +67,11 @@ fn main() {
     // Iterate through the wanted days
     loop {
         match date_module.get_next_date() {
-            Err(resultDate) => println!("has finished"),
-            Ok(resultDate) => {
-                println!("Iterated Date: {:#?}", resultDate);
-
+            Err(result_date) => println!("has finished"),
+            Ok(result_date) => {
+                // println!("Iterated Date: {:#?}", result_date);
                 // commit on the iterated date
-                git_module.commit_on_date(&resultDate);
+                git_module.commit_on_date(&result_date);
             }
         }
 

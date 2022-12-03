@@ -35,7 +35,7 @@ impl Gitter {
             commits = rng.gen_range(self.min_commits .. self.max_commits);
         }
 
-        for i in 0..commits {
+        for _i in 0..commits {
             self.commit(&date_string);
         }
     }
@@ -44,8 +44,8 @@ impl Gitter {
     /// command should look like "git commit --date='year-month-day hour:minutes:seconds' -m "message""
     fn commit(&mut self, date_string: &String) {
         let msg = lipsum::lipsum_words(LOREM_WORDS.into());
-        let fileWithFolder = format!("{}/{}", &self.path, & self.fake_file);
-        let _ = systemer::sys_change_file(&fileWithFolder);
+        let file_with_folder = format!("{}/{}", &self.path, & self.fake_file);
+        let _ = systemer::sys_change_file(&file_with_folder);
 
         systemer::git_add(&self.path);
 
