@@ -77,8 +77,9 @@ fn main() {
         }
 
         // loop termination
-        if date_module.get_finished() == true {
-            println!("Commits done: {:#?}", git_module.get_num_commits());
+        if date_module.get_finished() == true
+        {
+            systemer::clean_up(args.file, &args.path);
             break;
         }
     }

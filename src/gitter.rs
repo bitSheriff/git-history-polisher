@@ -54,7 +54,7 @@ impl Gitter {
     }
     
     pub fn init_file() {
-
+        todo!()
     }
 
     pub fn get_num_commits(&self) -> u32 {
@@ -64,7 +64,8 @@ impl Gitter {
     /// Check Repository
     ///
     pub fn check_repository() {
-
+        todo!()
     }
+
 
 }

@@ -65,7 +65,7 @@ impl Datter {
     }
 
     fn iterate_internal_date(&mut self){
-        // interate date
+        // iterate date
         self.next_date();
 
         // check if the end date is reached
