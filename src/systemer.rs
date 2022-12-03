@@ -11,6 +11,8 @@ pub fn system_call(cmd: String, args: String) {
 pub fn git_add(dir: &String) {
     let command = Command::new("git")
                   .arg("--git-dir")
+                  .arg(format!("{}{}", dir, String::from("/.git")))
+                  .arg("--work-tree")
                   .arg(dir)
                   .arg("add")
                   .arg(".")
@@ -23,6 +25,8 @@ pub fn git_commit(dir: &String, msg: String) {
      
     let command = Command::new("git")
                   .arg("--git-dir")
+                  .arg(format!("{}{}", dir, String::from("/.git")))
+                  .arg("--work-tree")
                   .arg(dir)
                   .arg("commit")
                   .arg(msg_cmd)
@@ -37,8 +41,6 @@ pub fn sys_create_file(name: &String) {
 }
 
 pub fn sys_change_file(name: String) {
-
-
 
     let mut rng = rand::thread_rng();
     let randNum = rng.gen_range(0 .. i32::MAX);
