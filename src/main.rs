@@ -1,5 +1,5 @@
-mod datter;
 mod gitter;
+mod datter;
 mod systemer;
 
 use clap::Parser;
@@ -84,5 +84,6 @@ fn main() {
         }
     }
 
-    //    systemer::echo_test();
+    systemer::echo_test();
+
 }
